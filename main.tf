@@ -44,21 +44,29 @@ data "aws_iam_policy_document" "default" {
   }
 }
 
+data "aws_vpc" "default" {
+  filter {
+    name = "tag:Name"
+    values = ["VPC Default"]
+  }
+}
+
+data "aws_subnet_ids" "private" {
+  vpc_id = data.aws_vpc.default.id
+  filter {
+    name = "tag:Tier"
+    values = ["private"]
+  }
+}
+
 data "aws_ami" "default" {
-  count       = var.ami == "" ? 1 : 0
-  most_recent = "true"
+  most_recent = true
+  owners = ["869825878781"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+    values = ["picpay-amzn2-ami-hvm-*"]
   }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"]
 }
 
 data "aws_ami" "info" {
