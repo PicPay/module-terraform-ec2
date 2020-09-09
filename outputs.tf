@@ -48,11 +48,6 @@ output "role" {
   value       = local.instance_profile_count > 0 ? join("", aws_iam_role.default.*.name) : join("", data.aws_iam_instance_profile.given.*.role_name)
 }
 
-output "alarm" {
-  description = "CloudWatch Alarm ID"
-  value       = join("", aws_cloudwatch_metric_alarm.default.*.id)
-}
-
 output "additional_eni_ids" {
   description = "Map of ENI to EIP"
   value = zipmap(
