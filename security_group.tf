@@ -26,7 +26,7 @@ resource "aws_security_group_rule" "ingress_tcp" {
   from_port         = var.allowed_ports[count.index]
   to_port           = var.allowed_ports[count.index]
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["10.0.0.0/8"]
   security_group_id = join("", aws_security_group.default.*.id)
 }
 
@@ -36,6 +36,6 @@ resource "aws_security_group_rule" "ingress_udp" {
   from_port         = var.allowed_ports_udp[count.index]
   to_port           = var.allowed_ports_udp[count.index]
   protocol          = "udp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["10.0.0.0/8"]
   security_group_id = join("", aws_security_group.default.*.id)
 }
