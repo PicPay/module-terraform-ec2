@@ -6,13 +6,13 @@ variable "ssh_key_pair" {
 variable "associate_public_ip_address" {
   type        = bool
   description = "Associate a public IP address with the instance"
-  default     = true
+  default     = false
 }
 
 variable "assign_eip_address" {
   type        = bool
   description = "Assign an Elastic IP address to the instance"
-  default     = true
+  default     = false
 }
 
 variable "user_data" {
