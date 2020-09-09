@@ -94,7 +94,7 @@ variable "disable_api_termination" {
 variable "monitoring" {
   type        = bool
   description = "Launched EC2 instance will have detailed monitoring enabled"
-  default     = true
+  default     = false
 }
 
 variable "private_ip" {
