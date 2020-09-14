@@ -19,12 +19,12 @@
 #
 
 module "this" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.19.2"
+  source = "../module-terraform-null-label"
 
   enabled             = var.enabled
-  namespace           = var.namespace
+  application         = var.application
   environment         = var.environment
-  stage               = var.stage
+  squad               = var.squad
   name                = var.name
   delimiter           = var.delimiter
   attributes          = var.attributes
@@ -42,9 +42,9 @@ module "this" {
 variable "context" {
   type = object({
     enabled             = bool
-    namespace           = string
+    application           = string
     environment         = string
-    stage               = string
+    squad               = string
     name                = string
     delimiter           = string
     attributes          = list(string)
@@ -56,9 +56,9 @@ variable "context" {
   })
   default = {
     enabled             = true
-    namespace           = null
+    application           = null
     environment         = null
-    stage               = null
+    squad               = null
     name                = null
     delimiter           = null
     attributes          = []
@@ -83,10 +83,10 @@ variable "enabled" {
   description = "Set to false to prevent the module from creating any resources"
 }
 
-variable "namespace" {
+variable "application" {
   type        = string
   default     = null
-  description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
+  description = "application, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
 }
 
 variable "environment" {
@@ -95,10 +95,10 @@ variable "environment" {
   description = "Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
 }
 
-variable "stage" {
+variable "squad" {
   type        = string
   default     = null
-  description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
+  description = "squad, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
 }
 
 variable "name" {
@@ -111,7 +111,7 @@ variable "delimiter" {
   type        = string
   default     = null
   description = <<-EOT
-    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.
+    Delimiter to be used between `bu`, `environment`, `squad`, `name` and `attributes`.
     Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.
   EOT
 }
@@ -139,7 +139,7 @@ variable "label_order" {
   default     = null
   description = <<-EOT
     The naming order of the id output and Name tag.
-    Defaults to ["namespace", "environment", "stage", "name", "attributes"].
+    Defaults to ["bu", "environment", "squad", "name", "attributes"].
     You can omit any of the 5 elements, but at least one must be present.
   EOT
 }
@@ -148,7 +148,7 @@ variable "regex_replace_chars" {
   type        = string
   default     = null
   description = <<-EOT
-    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.
+    Regex to replace chars with empty string in `bu`, `environment`, `squad` and `name`.
     If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.
   EOT
 }
