@@ -19,13 +19,17 @@
 #
 
 module "this" {
-  source = "../module-terraform-null-label"
+  source = "git::https://github.com/PicPay/module-terraform-null-label.git?ref=tags/0.1.0"
 
   enabled             = var.enabled
   application         = var.application
   environment         = var.environment
   squad               = var.squad
+  terraform           = var.terraform
   name                = var.name
+  bu                  = var.bu
+  costcenter          = var.costcenter
+  tribe               = var.tribe
   delimiter           = var.delimiter
   attributes          = var.attributes
   tags                = var.tags
@@ -45,7 +49,11 @@ variable "context" {
     application           = string
     environment         = string
     squad               = string
+    terraform           = string
     name                = string
+    bu                  = string
+    costcenter          = string
+    tribe               = string
     delimiter           = string
     attributes          = list(string)
     tags                = map(string)
@@ -60,6 +68,10 @@ variable "context" {
     environment         = null
     squad               = null
     name                = null
+    terraform           = "true"
+    bu                  = "PicPay"
+    costcenter          = null
+    tribe               = null
     delimiter           = null
     attributes          = []
     tags                = {}
@@ -101,10 +113,34 @@ variable "squad" {
   description = "squad, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
 }
 
+variable "terraform" {
+  type        = bool
+  default     = true
+  description = "Set to true"
+}
+
 variable "name" {
   type        = string
   default     = null
   description = "Solution name, e.g. 'app' or 'jenkins'"
+}
+
+variable "bu" {
+  type        = string
+  default     = "PicPay"
+  description = "Set to PicPay since is the only that we have"
+}
+
+variable "costcenter" {
+  type        = string
+  default     = null
+  description = "Set the cost center, see at https://picpay.atlassian.net/wiki/spaces/IC/pages/958530159/PicPay+-+Centro+de+Custos"
+}
+
+variable "tribe" {
+  type        = string
+  default     = null
+  description = "Set the tribe, see at https://picpay.atlassian.net/wiki/spaces/U/pages/681738929/Estrutura+de+tribos+-+PicPay"
 }
 
 variable "delimiter" {
