@@ -59,7 +59,7 @@ module "kafka_instance" {
   ebs_volume_count            = 2
   allowed_ports               = [22, 80, 443]
 }
-
+```
 
 ## Requirements
 
