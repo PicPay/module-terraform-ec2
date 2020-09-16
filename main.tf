@@ -45,17 +45,15 @@ data "aws_iam_policy_document" "default" {
 }
 
 data "aws_vpc" "default" {
-  filter {
-    name = "tag:Name"
-    values = ["VPC Default"]
+  tags =  {
+    Name = "VPC Default"
   }
 }
 
 data "aws_subnet_ids" "private" {
   vpc_id = data.aws_vpc.default.id
-  filter {
-    name = "tag:Tier"
-    values = ["private"]
+  tags = {
+    Tier = "private"
   }
 }
 
@@ -63,9 +61,8 @@ data "aws_ami" "default" {
   most_recent = true
   owners = ["869825878781"]
 
-  filter {
-    name   = "name"
-    values = ["picpay-amzn2-ami-hvm-*"]
+  tags = {
+    Name   = "picpay-amzn2-ami-hvm-*"
   }
 }
 
