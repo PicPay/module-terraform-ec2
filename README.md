@@ -24,8 +24,14 @@ Include this repository as a module in your existing terraform code.
 ### Simple example:
 
 ```hcl
+
+module "keypair-ssm" {
+  source   = "git@github.com:PicPay/ops-terraform-keypair-ssm.git?ref=master../ops-terraform-keypair-ssm"
+  key_name = "testeec2"
+}
+
 module "instance" {
-  source                      = "git::https://github.com/PicPay/module-terraform-ec2.git?ref=master"
+  source            = "git::https://github.com/PicPay/module-terraform-ec2.git?ref=master"
   ssh_key_pair      = module.keypair-ssm.key_name
   availability_zone = "us-east-1d"
   vpc_id            = data.aws_vpc.default.id
